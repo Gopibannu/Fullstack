@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-This project is a complete **Login → Signup → Dashboard workflow** built for my college cyber awareness competition. I learned how real authentication works using **Node.js, Express, MySQL**, and how to manage my entire project using **Git & GitHub**.
+This project is a complete **Login → Signup → Dashboard workflow** built for indepth internal understandings. I learned how real authentication works using **Node.js, Express, MySQL**, and how to manage my entire project using **Git & GitHub**.
 
 ---
 
