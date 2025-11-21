@@ -108,7 +108,6 @@ project-folder/
 │── signup.html
 │── dashboard.html
 │── server.js
-│── database.js
 │── package.json
 └── README.md
 ```
