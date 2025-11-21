@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .welcome-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logout-btn {
+            margin-top: 20px;
+            background: #dc3545;
+        }
+        .logout-btn:hover {
+            background: #b52a36;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Dashboard</h2>
+
+    <div class="welcome-box">
+        <h3>Hello, <span id="username">User</span> 👋</h3>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<script>
+    // Later backend will send real username
+    const username = localStorage.getItem("username") || "User";
+    document.getElementById("username").innerText = username;
+
+    function logout() {
+        localStorage.removeItem("username");
+        window.location.href = "/login.html";
+    }
+</script>
+
+</body>
+</html>
