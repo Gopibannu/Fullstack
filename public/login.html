@@ -31,6 +31,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     // Send request to backend
     const res = await fetch("http://localhost:3001/login", {
         method: "POST",
+        credentials:"include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     });
