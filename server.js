@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mysql = require('mysql2');
+const bcrypt = require('bcrypt');
 //importing modules
 
 const app=express();
@@ -27,16 +28,18 @@ db.connect(err=>{
 
 //signup
 
-app.post("/signup",(req,res)=>{
+app.post("/signup",async (req,res)=>{
 
     const {username,email,password}=req.body;
-    const query = "INSERT INTO users (username,email,password) VALUES (?,?,?)";
-    db.query(query,[username,email,password],(err,result)=>{
+    try{
+        const hashedpassword = await bcrypt.hash(password,10);
+        const query = "INSERT INTO users (username,email,password) VALUES (?,?,?)";
+    db.query(query,[username,email,hashedpassword],(err,result)=>{
         if(err){
             console.log("Eroor ",err);
             return res.send("Signup Failed")
         }
-        res.send("Signup Succesfull");
+        return res.send("Signup Succesfull");
 
     })
     console.log("Signup recieved");
@@ -44,15 +47,20 @@ app.post("/signup",(req,res)=>{
 
     return res.send("Sign up succesfull :");
 
+    }
+    catch{
+        console.log("Error hashing password :")
+    }
+    
 
 })
 
 //login
 
-app.post("/login",(req,res)=>{
+app.post("/login",async (req,res)=>{
     const {email,password}=req.body;
     const query = "SELECT * FROM users where email = ?";
-    db.query(query,[email],(err,result)=>{
+    db.query(query,[email],async (err,result)=>{
         if(err){
            return  res.send("Login Error");
         }
@@ -61,14 +69,18 @@ app.post("/login",(req,res)=>{
         }
         console.log(result)
         const user = result[0];
-        if(user.password!=password){
-            return res.send("WRong password:");
-        }
-       return res.json({
+        const ismatch = await bcrypt.compare(password,user.password);
+        if(ismatch){
+         return res.json({
         success:true,
         username:user.username,
         message:"Login Succesfull"
        })
+        }
+        else{
+            return res.send("Wrong username or password : ")
+        }
+       
     })
     console.log("Login REcieved :")
     console.log(email,password)
