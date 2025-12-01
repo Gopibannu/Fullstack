@@ -131,5 +131,3 @@ And now I am ready for **deployment + next-level development**.
 **Gopi Chandu**
 
 ---
-
-If you want changes like adding screenshots, architecture diagram, or advanced explanation, tell me!
