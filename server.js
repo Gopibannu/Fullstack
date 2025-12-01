@@ -3,6 +3,7 @@ const path = require('path');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const cookieparser = require('cookie-parser');
+const authMiddleware = require('./authMiddleware');
 //importing modules
 
 const app=express();
@@ -96,6 +97,16 @@ app.post("/login", async (req, res) => {
         });
     });
 });
+app.get("/dashboard",authMiddleware,(req,res)=>{
+   res.json({
+     success: true,
+    username: req.username
+   })
+});
+app.post("/logout",(req,res)=>{
+    res.clearCookie("session-user");
+    return res.json({success:true,message:"Logged Out"});
+})
 
 
 app.listen(3001,()=>{

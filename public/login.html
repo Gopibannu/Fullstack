@@ -38,9 +38,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
    
     const data = await res.json();
-    console.log(data)
-    alert(data.message);
-
     if (data.success) {
         // Store username for dashboard
         localStorage.setItem("username", data.username);
@@ -48,6 +45,8 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         // Redirect to dashboard
         window.location.href = "dashboard.html";
     }
+    
+    
 });
 </script>
 

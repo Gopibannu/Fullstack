@@ -30,15 +30,41 @@
 </div>
 
 <script>
-    // Later backend will send real username
-    const username = localStorage.getItem("username") || "User";
-    document.getElementById("username").innerText = username;
+async function loadUser() {
+    const res = await fetch("http://localhost:3001/dashboard", {
+        method: "GET",
+        credentials: "include"
+    });
 
-    function logout() {
-        localStorage.removeItem("username");
-        window.location.href = "/login.html";
+    const data = await res.json();
+
+    if (!data.success) {
+        window.location.href = "login.html";
+        return;
     }
+    else{
+        document.getElementById("username").innerText = data.username;
+    }
+    
+}
+
+loadUser();
+
+async function logout() {
+    const res = await fetch("http://localhost:3001/logout", {
+        method: "POST",
+        credentials: "include"
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+        localStorage.removeItem("username");
+        window.location.href = "login.html";
+    }
+}
 </script>
+
 
 </body>
 </html>
