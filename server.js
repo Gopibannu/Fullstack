@@ -18,7 +18,7 @@ const db = mysql.createConnection(
     {
         host:"localhost",
         user:"root",
-        password:"bannu@Bhar12121",
+        password:"yourpassword",
         database:"authdb"
     }
 )
